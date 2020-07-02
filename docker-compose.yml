@@ -1,0 +1,23 @@
+version:  '3.7'
+
+services:
+  api:
+    container_name: '${APP_NAME}.${APP_ENV}_v${APP_VERSION:-local}'
+    image: '${APP_NAME}.${APP_ENV}:${APP_VERSION:-local}'
+    hostname: '${APP_NAME}'
+    working_dir: ${APP_PATH}
+    build:
+      context: .docker/${APP_ENV}
+      args:
+        USER_NAME: ${USER_NAME}
+        USER_ID: ${USER_UID}
+    volumes:
+      - /home/${USER_NAME}:/home/${USER_NAME}
+      - ./:${APP_PATH}
+    ports:
+      - "3000:3000"
+
+networks:
+  default:
+    driver: bridge
+    name: ${BRIDGE}

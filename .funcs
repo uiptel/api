@@ -1,0 +1,5 @@
+
+app_version() {
+  local result=`cat package.json | jq -r '.version'`
+  printf "$result"
+}
