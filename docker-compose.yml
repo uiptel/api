@@ -1,6 +1,24 @@
 version:  '3.7'
 
 services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: pass4r00t
+      MYSQL_DATABASE: uiptel
+      MYSQL_USER: uiptel
+      MYSQL_PASSWORD: pass4uiptel
+    volumes:
+      - ./.db_data:/var/lib/mysql
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+    ports:
+      - 8080:80
+
   api:
     container_name: '${APP_NAME}.${APP_ENV}_v${APP_VERSION:-local}'
     image: '${APP_NAME}.${APP_ENV}:${APP_VERSION:-local}'
@@ -15,7 +33,7 @@ services:
       - /home/${USER_NAME}:/home/${USER_NAME}
       - ./:${APP_PATH}
     ports:
-      - "3000:3000"
+      - 3000:3000
 
 networks:
   default:
