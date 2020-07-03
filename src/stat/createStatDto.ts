@@ -1,4 +1,7 @@
+import { StatDto } from "./statDto";
 
-export class CreateStatDto {
-   agent: string;
+export class CreateStatDto extends StatDto {
+   ip: string;
+   userAgent: string;
+   referer: string;
 }

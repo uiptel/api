@@ -7,7 +7,7 @@ import { CreateStatDto } from './createStatDto';
 @Injectable()
 export class StatService {
   constructor(
-    @InjectRepository(Stat) private repository: Repository<Stat>,
+    @InjectRepository(Stat) private readonly repository: Repository<Stat>,
   ) {}
 
   findAll(): Promise<Stat[]> {

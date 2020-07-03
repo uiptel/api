@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Stat {
@@ -8,5 +8,20 @@ export class Stat {
   id: number;
 
   @Column()
-  agent: string;
+  userAgent: string;
+
+  @Column()
+  referer: string;
+
+  @Column()
+  ip: string;
+
+  @Column()
+  language: string;
+
+  @Column()
+  timezone: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
 }
