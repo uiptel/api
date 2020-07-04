@@ -14,8 +14,8 @@ export class StatService {
     return this.repository.find();
   }
 
-  findOne(id: string): Promise<Stat> {
-    return this.repository.findOne(id);
+  find(id: number): Promise<Stat> {
+    return this.repository.findOneOrFail(id);
   }
 
   save(createStatDto: CreateStatDto): Promise<Stat> {
