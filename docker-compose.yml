@@ -13,6 +13,8 @@ services:
       - ./.db_data:/var/lib/mysql
 
   pma:
+    depends_on:
+      - db
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: db
@@ -20,8 +22,11 @@ services:
       - 8080:80
 
   api:
+    depends_on:
+      - db
     container_name: '${APP_NAME}.${APP_ENV}_v${APP_VERSION:-local}'
     image: '${APP_NAME}.${APP_ENV}:${APP_VERSION:-local}'
+    command: ["nest", "start", "--watch"]
     hostname: '${APP_NAME}'
     working_dir: ${APP_PATH}
     build:
