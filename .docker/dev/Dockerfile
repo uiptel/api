@@ -14,10 +14,4 @@ RUN useradd -g users -G root,www-data,sudo -u ${USER_ID} ${USER_NAME} -s /bin/ba
 
 RUN npm i -g @nestjs/cli
 
-# -- Add Tini --
-ENV TINI_VERSION=v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
-ENTRYPOINT ["/tini", "--", "docker-entrypoint.sh"]
 CMD ["sleep", "infinity"]
