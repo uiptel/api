@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, FindManyOptions } from 'typeorm';
 import { Stat } from './stat.entity';
 import { CreateStatDto } from './createStatDto';
 
@@ -10,8 +10,8 @@ export class StatService {
     @InjectRepository(Stat) private readonly repository: Repository<Stat>,
   ) {}
 
-  findAll(): Promise<Stat[]> {
-    return this.repository.find();
+  findAll(options: FindManyOptions = {}): Promise<Stat[]> {
+    return this.repository.find(options);
   }
 
   find(id: number): Promise<Stat> {
