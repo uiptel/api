@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
 
-const logger = new Logger('uiptel', false);
+const logger = new Logger('main', false);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });

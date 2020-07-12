@@ -1,8 +1,9 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StatController } from './stat/stat.controller';
 import { Stat } from './stat/stat.entity';
 import { StatService } from './stat/stat.service';
+import { LoggerMiddleware } from './logger.middleware';
 
 @Module({
   imports: [
@@ -14,4 +15,11 @@ import { StatService } from './stat/stat.service';
   controllers: [StatController],
   providers: [StatService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
+    ;
+  }
+}
