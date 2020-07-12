@@ -20,7 +20,7 @@ export class StatController {
     return this.statService.findAll({
       take: limit < this.maxLimit ? limit : this.maxLimit,
       skip: offset,
-      order: { id: 'ASC' },
+      order: { createdAt: 'ASC' },
     });
   }
 
