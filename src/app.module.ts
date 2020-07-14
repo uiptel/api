@@ -1,4 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StatController } from './stat/stat.controller';
 import { Stat } from './stat/stat.entity';
@@ -7,10 +8,9 @@ import { LoggerMiddleware } from './logger.middleware';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      entities: [Stat],
-    }),
-    TypeOrmModule.forFeature([Stat])
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({ entities: [Stat] }),
+    TypeOrmModule.forFeature([Stat]),
   ],
   controllers: [StatController],
   providers: [StatService],

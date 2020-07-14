@@ -1,0 +1,14 @@
+/node_modules
+/dist
+/test
+/.db_data
+/.docker
+/.k8s
+/.git
+/.gitignore
+/build_prod.sh
+/start_prod.sh
+/compose.sh
+/connect_mysql.sh
+/exec.sh
+/sleep.js
