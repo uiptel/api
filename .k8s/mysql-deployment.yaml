@@ -29,9 +29,15 @@ spec:
                 name: mysql-secret
                 key: password
           - name: MYSQL_DATABASE
-            value: uiptel
+            valueFrom:
+              configMapKeyRef:
+                name: uiptel-mysql-config
+                key: mysql_database
           - name: MYSQL_USER
-            value: uiptel
+            valueFrom:
+              configMapKeyRef:
+                name: uiptel-mysql-config
+                key: mysql_user
         ports:
         - containerPort: 3306
           name: mysql

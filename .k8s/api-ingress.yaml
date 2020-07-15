@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: uiptel-api-ingress
+  annotations:
+spec:
+  tls:
+  - hosts:
+      - api.uiptel.com
+    secretName: uiptel-api-tls-cert
+  rules:
+  - host: api.uiptel.com
+    http:
+      paths:
+      - backend:
+          serviceName: uiptel-api
+          servicePort: 3000

@@ -3,7 +3,6 @@
 . .env
 . .funcs
 
-REGISTRY=anryzhov
 APP_VERSION=$(app_version)
 DOCKER_FILE=.docker/prod/Dockerfile
 PRODUCTION_IMAGE=${REGISTRY}/${APP_NAME}:${APP_VERSION:-latest}
