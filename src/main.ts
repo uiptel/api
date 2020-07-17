@@ -6,6 +6,7 @@ const logger = new Logger('main', false);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+  app.getHttpAdapter().getInstance().enable('trust proxy');
   await app.listen(3000);
   return app;
 }
