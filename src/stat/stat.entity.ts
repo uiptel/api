@@ -31,6 +31,16 @@ export class Stat {
   @Column({ type: "char", length: 16})
   timezone: string;
 
+  @IsString({ always: true })
+  @MaxLength(16, { always: true })
+  @Column({ type: "char", length: 16})
+  version: string;
+
+  @IsString({ always: true })
+  @MaxLength(128, { always: true })
+  @Column({ type: "char", length: 128})
+  digestImage: string;
+
   @CreateDateColumn()
   @Index()
   createdAt?: Date;
