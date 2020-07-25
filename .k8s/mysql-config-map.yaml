@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: uiptel-mysql-config
+  name: mysql-config
+  namespace: uiptel
 data:
   mysql_host: "mysql"
   mysql_database: "uiptel"

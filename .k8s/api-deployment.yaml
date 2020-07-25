@@ -1,39 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: uiptel-api
+  name: api
+  namespace: uiptel
   labels:
-    app: uiptel-api
+    app: api
 spec:
   replicas: 2
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: uiptel-api
+      app: api
   template:
     metadata:
       labels:
-        app: uiptel-api
+        app: api
     spec:
       containers:
-      - name: uiptel-api
-        image: anryzhov/uiptel-api:0.0.0
+      - name: api
+        image: anryzhov/uiptel-api@sha256:b68ab34ccdcf328d181792b921712a98ff102aa155d0d2347e792948db987ce9
         imagePullPolicy: Always
         env:
           - name: MYSQL_HOST
             valueFrom:
               configMapKeyRef:
-                name: uiptel-mysql-config
+                name: mysql-config
                 key: mysql_host
           - name: MYSQL_DATABASE
             valueFrom:
               configMapKeyRef:
-                name: uiptel-mysql-config
+                name: mysql-config
                 key: mysql_database
           - name: MYSQL_USER
             valueFrom:
               configMapKeyRef:
-                name: uiptel-mysql-config
+                name: mysql-config
                 key: mysql_user
           - name: MYSQL_PASSWORD
             valueFrom:
@@ -41,4 +42,4 @@ spec:
                 name: mysql-secret
                 key: password
         ports:
-        - containerPort: 3000
+          - containerPort: 3000

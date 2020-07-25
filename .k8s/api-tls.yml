@@ -1,10 +1,10 @@
 #### -- use command -- >>>>>>>
-# >> kubectl create secret tls uiptel-api-tls-cert --cert=.docker/cert/uiptel.com.crt --key=.docker/cert/uiptel.com.key
+# >> kubectl create secret tls api-uiptel-tls-cert --cert=.docker/cert/uiptel.com.crt --key=.docker/cert/uiptel.com.key
 ##################################
 apiVersion: v1
 kind: Secret
 metadata:
-  name: uiptel-api-tls-cert
+  name: api-uiptel-tls-cert
   namespace: default
 data:
   tls.crt: 
