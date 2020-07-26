@@ -4,6 +4,7 @@
 . .funcs
 
 APP_VERSION=$(app_version)
+APP_NAME=$(app_name)
 DOCKER_FILE=.docker/prod/Dockerfile
 PRODUCTION_IMAGE=${REGISTRY}/${APP_NAME}:${APP_VERSION:-latest}
 BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') 

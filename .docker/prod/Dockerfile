@@ -27,6 +27,6 @@ ENV BUILD_DATE=${BUILD_DATE} VCS_REF=${COMMIT_ID} VERSION=${VERSION} WORKDIR=${W
 WORKDIR ${WORKDIR}
 COPY --from=builder /app/dist ./dist/
 COPY --from=builder /app/node_modules ./node_modules/
-COPY --from=builder /app/ormconfig.js /app/package.json /app/.env ./
+COPY --from=builder /app/sleep.js /app/ormconfig.js /app/package.json /app/.env ./
 
 CMD ["dist/main"]

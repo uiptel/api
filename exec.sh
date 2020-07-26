@@ -4,7 +4,8 @@
 . .funcs
 
 APP_VERSION=$(app_version)
-CONTAINER=${APP_NAME}.${APP_ENV}_v${APP_VERSION:-local}
+APP_NAME=$(app_name)
+CONTAINER=${APP_NAME}_${APP_ENV}
 USER=`id -u -n`
 COMMAND=${@:-bash}
 

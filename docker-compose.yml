@@ -24,8 +24,8 @@ services:
   api:
     depends_on:
       - db
-    container_name: '${APP_NAME}.${APP_ENV}_v${APP_VERSION:-local}'
-    image: '${APP_NAME}.${APP_ENV}:${APP_VERSION:-local}'
+    container_name: '${APP_NAME}_${APP_ENV}'
+    image: '${APP_NAME}_${APP_ENV}:${APP_VERSION:-local}'
     command: ["sleep.js"]
     environment:
       MYSQL_HOST: db

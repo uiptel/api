@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export class StatInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
-    const { remoteAddress: ip } = request.connection;
+    const { ip } = request;
     const { 'user-agent': userAgent = '', referer = '' } = request.headers;
 
     request.body = { ...request.body, ip, userAgent, referer };
