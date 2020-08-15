@@ -49,4 +49,4 @@ services:
 networks:
   default:
     driver: bridge
-    name: ${BRIDGE}
+    name: ${NAMESPACE}
