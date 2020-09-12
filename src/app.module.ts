@@ -7,19 +7,19 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot(),
-    TypeOrmModule.forRoot(),
-    StatModule,
-    UsersModule,
-    AuthModule,
-  ],
+    imports: [
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRoot(),
+        StatModule,
+        UsersModule,
+        AuthModule,
+    ],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL })
-    ;
-  }
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(LoggerMiddleware)
+            .forRoutes({ path: '*', method: RequestMethod.ALL })
+        ;
+    }
 }
