@@ -5,10 +5,14 @@ import { StatModule } from './stat/stat.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import config from './config';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            load: [config]
+        }),
         TypeOrmModule.forRoot(),
         StatModule,
         UsersModule,
