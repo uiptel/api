@@ -1,8 +1,9 @@
-import { Controller, UseInterceptors} from '@nestjs/common';
+import { Controller, UseInterceptors, UseGuards} from '@nestjs/common';
 import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from "@nestjsx/crud";
 import { StatService } from './stat.service';
 import { Stat } from './stat.entity';
 import { StatInterceptor } from './stat.interceptor';
+import { JwtAuthGuard } from 'src/auth/auth.service';
 
 @Crud({
   model: {
@@ -24,6 +25,7 @@ import { StatInterceptor } from './stat.interceptor';
     alwaysPaginate: true
   }
 })
+@UseGuards(JwtAuthGuard)
 @Controller('stat')
 export class StatController implements CrudController<Stat> {
   constructor(public readonly service: StatService) { }
