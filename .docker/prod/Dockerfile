@@ -3,18 +3,17 @@ FROM node:alpine AS builder
 
 WORKDIR /app
 COPY . .
+RUN mv .env.prod .env
 RUN npm ci
 RUN npx nest build
 
 # ---- PROD IMAGE ----
 FROM node:alpine
 
-EXPOSE 3000
-
 ARG BUILD_DATE
 ARG COMMIT_ID
 ARG VERSION
-ARG WORKDIR=/var/www
+ARG WORKDIR
 
 # Labels.
 LABEL maintainer="ryzhov@uiptel.com"
@@ -26,7 +25,7 @@ LABEL org.label-schema.version=$VERSION
 ENV BUILD_DATE=${BUILD_DATE} VCS_REF=${COMMIT_ID} VERSION=${VERSION} WORKDIR=${WORKDIR} NODE_ENV=production
 WORKDIR ${WORKDIR}
 COPY --from=builder /app/dist ./dist/
-COPY --from=builder /app/node_modules ./node_modules/
-COPY --from=builder /app/sleep.js /app/ormconfig.js /app/package.json /app/.env ./
+COPY --from=builder /app/ormconfig.js /app/package.json /app/package-lock.json /app/.env ./
+RUN npm ci
 
 CMD ["dist/main"]
