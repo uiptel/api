@@ -26,6 +26,6 @@ ENV BUILD_DATE=${BUILD_DATE} VCS_REF=${COMMIT_ID} VERSION=${VERSION} WORKDIR=${W
 WORKDIR ${WORKDIR}
 COPY --from=builder /app/dist ./dist/
 COPY --from=builder /app/ormconfig.js /app/package.json /app/package-lock.json /app/.env ./
-RUN npm ci
+RUN npm ci && npm cache clean --force
 
 CMD ["dist/main"]
