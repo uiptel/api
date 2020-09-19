@@ -36,7 +36,7 @@ export class StatController implements CrudController<Stat> {
 
   @UseInterceptors(StatInterceptor)
   @Override()
-  createOne(@ParsedRequest() req: CrudRequest, @ParsedBody() dto: Stat) {
+  createOne(@ParsedRequest() req: CrudRequest, @ParsedBody() dto: Stat): Promise<Stat> {
     return this.base.createOneBase(req, dto);
   }
 }
