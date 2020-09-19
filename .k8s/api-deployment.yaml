@@ -6,11 +6,13 @@ metadata:
   labels:
     app: api
 spec:
-  replicas: 2
-  revisionHistoryLimit: 2
+  replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: api
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -18,7 +20,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: anryzhov/uiptel-api@sha256:b68ab34ccdcf328d181792b921712a98ff102aa155d0d2347e792948db987ce9
+        image: anryzhov/api.uiptel:0.0.0
         imagePullPolicy: Always
         env:
           - name: MYSQL_HOST
