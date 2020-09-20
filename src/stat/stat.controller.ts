@@ -3,7 +3,7 @@ import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest 
 import { StatService } from './stat.service';
 import { Stat } from './stat.entity';
 import { StatInterceptor } from './stat.interceptor';
-import { JwtAuthGuard } from 'src/auth/auth.service';
+import { JwtAuthGuard } from '../auth/auth.service';
 
 @Crud({
   model: {

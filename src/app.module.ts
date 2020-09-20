@@ -20,7 +20,7 @@ import config from './config';
     ],
 })
 export class AppModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
+    configure(consumer: MiddlewareConsumer): void {
         consumer
             .apply(LoggerMiddleware)
             .forRoutes({ path: '*', method: RequestMethod.ALL })
