@@ -1,5 +1,5 @@
 import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StatModule } from './stat/stat.module';
 import { LoggerMiddleware } from './logger.middleware';
@@ -13,7 +13,16 @@ import config from './config';
             isGlobal: true,
             load: [config]
         }),
-        TypeOrmModule.forRoot(),
+        TypeOrmModule.forRootAsync({
+            imports: [ ConfigModule ],
+            inject: [ ConfigService ],
+            useFactory: async (configService: ConfigService) => ({
+                type: configService.get('typeorm_type'),
+                url: configService.get('typeorm_url'),
+                autoLoadEntities: true,
+                synchronize: false,
+            })
+        }),
         StatModule,
         UsersModule,
         AuthModule,

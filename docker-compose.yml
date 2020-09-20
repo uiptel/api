@@ -28,10 +28,7 @@ services:
     image: '${APP_NAME}_${APP_ENV}:${APP_VERSION:-local}'
     command: ["sleep.js"]
     environment:
-      MYSQL_HOST: db
-      MYSQL_DATABASE: uiptel
-      MYSQL_USER: uiptel
-      MYSQL_PASSWORD: pass4uiptel
+      DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
 
     hostname: '${APP_NAME}'
     working_dir: ${APP_PATH}
