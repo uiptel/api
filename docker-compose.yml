@@ -29,6 +29,7 @@ services:
     command: ["sleep.js"]
     environment:
       DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
+      NODE_ENV: development
 
     hostname: '${APP_NAME}'
     working_dir: ${APP_PATH}

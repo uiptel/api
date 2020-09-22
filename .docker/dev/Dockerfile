@@ -1,7 +1,5 @@
 FROM node:buster-slim
 
-ENV NODE_ENV=development
-
 ARG USER_NAME
 ARG USER_ID
 
