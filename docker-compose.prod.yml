@@ -27,15 +27,12 @@ services:
     container_name: ${CONTAINER_NAME}
     image: ${IMAGE}
     environment:
-      MYSQL_HOST: db
-      MYSQL_DATABASE: uiptel
-      MYSQL_USER: uiptel
-      MYSQL_PASSWORD: pass4uiptel
+      DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
       APP_SECRET: secret
 
     build:
       context: .
-      dockerfile: .docker/prod/Dockerfile
+      dockerfile: .docker/Dockerfile
       args:
         WORKDIR: ${APP_PATH}
         BUILD_DATE: ${BUILD_DATE}

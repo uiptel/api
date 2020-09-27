@@ -24,8 +24,8 @@ services:
   api:
     depends_on:
       - db
-    container_name: '${APP_NAME}_${APP_ENV}'
-    image: '${APP_NAME}_${APP_ENV}:${APP_VERSION:-local}'
+    container_name: ${CONTAINER_NAME}
+    image: anryzhov/node-dev:buster-slim
     command: ["sleep.js"]
     environment:
       DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
@@ -33,11 +33,6 @@ services:
 
     hostname: '${APP_NAME}'
     working_dir: ${APP_PATH}
-    build:
-      context: .docker/${APP_ENV}
-      args:
-        USER_NAME: ${USER_NAME}
-        USER_ID: ${USER_UID}
     volumes:
       - /home/${USER_NAME}:/home/${USER_NAME}
       - ./:${APP_PATH}
