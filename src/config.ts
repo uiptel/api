@@ -6,6 +6,7 @@ const {
     DB_URL: dbUrl,
     APP_SECRET: secret,
     DIGEST_IMAGE: digestImage = 'undefined',
+    NODE_ENV: nodeEnv,
  } = process.env;
 
 export default (): unknown => ({
@@ -18,4 +19,5 @@ export default (): unknown => ({
     buildDate,
     commitId,
     digestImage,
+    nodeEnv,
 });

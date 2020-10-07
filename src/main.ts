@@ -8,8 +8,10 @@ const shutdown = (app: INestApplication, message: string) => app.close().then(_ 
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, { cors: true });
-    const process = require('process');
-    const port = app.get(ConfigService).get('port');
+    const configService = app.get(ConfigService);
+    const port = configService.get('port');
+    const env = configService.get('nodeEnv');
+    const version = configService.get('version');
 
     app.getHttpAdapter().getInstance().enable('trust proxy');
     await app.listen(port);
@@ -17,7 +19,7 @@ async function bootstrap() {
     process.on('SIGINT', () => shutdown(app, 'Exit on SIGINT...'));
     process.on('SIGTERM', () => shutdown(app, 'Exit on SIGTERM...'));
 
-    logger.log(`Application started on port: ${port}.`);
+    logger.log(`Application started on port => ${port}, env => ${env}, version => ${version}`);
 
     return app;
 }

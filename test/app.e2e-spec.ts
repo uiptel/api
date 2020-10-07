@@ -32,6 +32,7 @@ describe('AppModule (e2e)', () => {
                 commitId: configService.get('commitId'),
                 buildDate: configService.get('buildDate'),
                 digestImage: configService.get('digestImage'),
+                nodeEnv: configService.get('nodeEnv'),
             })
         ;
     });

@@ -6,6 +6,7 @@ interface IndexModel {
     commitId: string;
     buildDate: string;
     digestImage: string;
+    nodeEnv: string;
 }
 
 @Controller('')
@@ -19,6 +20,7 @@ export class AppController {
             commitId: this.configService.get('commitId'),
             buildDate: this.configService.get('buildDate'),
             digestImage: this.configService.get('digestImage'),
+            nodeEnv: this.configService.get('nodeEnv'),
         };
     }
 }

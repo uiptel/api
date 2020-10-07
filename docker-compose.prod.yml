@@ -29,6 +29,7 @@ services:
     environment:
       DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
       APP_SECRET: secret
+      NODE_ENV: production
 
     build:
       context: .
