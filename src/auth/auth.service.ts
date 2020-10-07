@@ -7,6 +7,11 @@ export interface TokenModel {
     access_token: string;
 }
 
+export interface JwtPayload {
+    username: string,
+    sub: number,
+}
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -20,7 +25,7 @@ export class AuthService {
     }
 
     async login(user: User): Promise<TokenModel> {
-        const payload = { username: user.username, sub: user.id };
+        const payload: JwtPayload = { username: user.username, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
         };

@@ -21,17 +21,21 @@ services:
     ports:
       - 8080:80
 
-  api:
+  app:
     depends_on:
       - db
     container_name: ${CONTAINER_NAME}
-    image: anryzhov/node-dev:buster-slim
+    image: ${DEV_IMAGE}
     command: ["sleep.js"]
     environment:
       DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
       NODE_ENV: development
+      BUILD_DATE: ${BUILD_DATE}
+      COMMIT_ID: ${COMMIT_ID}
+      VERSION: ${APP_VERSION}
+      APP_SECRET: some_other_secret_23423424
 
-    hostname: '${APP_NAME}'
+    hostname: ${APP_NAME}
     working_dir: ${APP_PATH}
     volumes:
       - /home/${USER_NAME}:/home/${USER_NAME}

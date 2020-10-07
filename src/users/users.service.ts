@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 export interface User {
     id: number;
     username: string;
-    password: string;
+    password?: string;
 }
 
 @Injectable()

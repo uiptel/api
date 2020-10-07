@@ -21,7 +21,7 @@ services:
     ports:
       - 8080:80
 
-  api:
+  app:
     depends_on:
       - db
     container_name: ${CONTAINER_NAME}

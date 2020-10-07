@@ -5,6 +5,7 @@ import { StatModule } from './stat/stat.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { AppController } from './AppController';
 import config from './config';
 
 @Module({
@@ -27,6 +28,7 @@ import config from './config';
         UsersModule,
         AuthModule,
     ],
+    controllers: [AppController],
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer): void {
