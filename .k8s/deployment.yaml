@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: uiptel
+  labels:
+    app: api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: api
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: anryzhov/api_uiptel:0.0.2
+        imagePullPolicy: Always
+        env:
+          - name: NODE_ENV
+            value: production
+          - name: APP_SECRET
+            value: some-app-secret-13131987498727
+          - name: DB_URL
+            value: mysql://uiptel:pa$$$$4uIPtel@mysql.default/uiptel
+        ports:
+          - containerPort: 3000

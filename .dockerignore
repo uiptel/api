@@ -6,8 +6,4 @@
 /.k8s
 /.git
 /.gitignore
-/build_prod.sh
-/start_prod.sh
-/compose.sh
-/connect_mysql.sh
-/exec.sh
+/sleep.js
