@@ -13,11 +13,17 @@ jobs:
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: cp .env.prod .env
-      - run: cat .env >> $GITHUB_ENV
+      - run: cat .env.prod >> $GITHUB_ENV
       - run: echo "VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_ENV
-      - run: echo "IMAGE=$(echo '${REGISTRY}/${SERVICE}_${NAMESPACE}:${VERSION}' | envsubst)" >> $GITHUB_ENV
-      - run: ./build.sh
+      - run: echo "IMAGE=${REGISTRY}/${SERVICE}_${NAMESPACE}:${VERSION}" >> $GITHUB_ENV
+      - run: echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+      - run: echo "VCS_REF=$(git log --format="%H" -n 1)" >> $GITHUB_ENV
+      - run: >
+            docker build -f .docker/Dockerfile -t ${IMAGE} --rm
+            --build-arg WORKDIR=$APP_PATH}
+            --build-arg BUILD_DATE=${BUILD_DATE}
+            --build-arg VCS_REF=${VCS_REF}
+            --build-arg VERSION=${VERSION}
       - run: docker push ${IMAGE}
       - run: docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE}
       
