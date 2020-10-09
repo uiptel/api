@@ -3,7 +3,7 @@ on:
   push:
     branches: master
 jobs:
-  docker-login:
+  test-build:
     runs-on: ubuntu-latest
     steps:
       - uses: docker/login-action@v1
@@ -11,10 +11,8 @@ jobs:
           username: anryzhov
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-  test-build:
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
       - run: npm ci
       - run: npm run build
+      - run: docker-compose --version
