@@ -37,7 +37,7 @@ services:
       args:
         WORKDIR: ${APP_PATH}
         BUILD_DATE: ${BUILD_DATE}
-        COMMIT_ID: ${COMMIT_ID}
+        VCS_REF: ${VCS_REF}
         VERSION: ${APP_VERSION}
     ports:
       - 3000:3000

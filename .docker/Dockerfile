@@ -11,7 +11,7 @@ RUN npm run build
 FROM node:alpine
 
 ARG BUILD_DATE
-ARG COMMIT_ID
+ARG VCS_REF
 ARG VERSION
 ARG WORKDIR
 
@@ -19,10 +19,10 @@ ARG WORKDIR
 LABEL maintainer="ryzhov@uiptel.com"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
-LABEL org.label-schema.vcs-ref=$COMMIT_ID
+LABEL org.label-schema.vcs-ref=$VCS_REF
 LABEL org.label-schema.version=$VERSION
 
-ENV BUILD_DATE=${BUILD_DATE} VCS_REF=${COMMIT_ID} VERSION=${VERSION} NODE_ENV=production
+ENV BUILD_DATE=${BUILD_DATE} VCS_REF=${VCS_REF} VERSION=${VERSION} NODE_ENV=production
 WORKDIR ${WORKDIR}
 COPY --from=builder /app/dist ./dist/
 COPY --from=builder /app/ormconfig.js /app/package.json /app/package-lock.json /app/.env ./
