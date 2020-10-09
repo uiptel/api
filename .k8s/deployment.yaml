@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: anryzhov/api_uiptel:0.0.2
+        image: ${DIGEST}
         imagePullPolicy: Always
         env:
           - name: NODE_ENV
@@ -29,5 +29,7 @@ spec:
             value: some-app-secret-13131987498727
           - name: DB_URL
             value: mysql://uiptel:pa$$$$4uIPtel@mysql.default/uiptel
+          - name: DIGEST_IMAGE
+            value: ${DIGEST}
         ports:
           - containerPort: 3000
