@@ -24,6 +24,7 @@ jobs:
             --build-arg BUILD_DATE=${BUILD_DATE}
             --build-arg VCS_REF=${VCS_REF}
             --build-arg VERSION=${VERSION}
+            .
       - run: docker push ${IMAGE}
       - run: docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE}
       
