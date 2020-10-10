@@ -2,7 +2,7 @@ name: deploy
 
 on:
   push:
-    branches: master
+    branches: test
 
 jobs:
   image-deploy:
@@ -21,7 +21,5 @@ jobs:
           mkdir -p ${KUBEHOME} \
             && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBECONFIG}
       
-      - name: Check kubectl version 
-        run: |
-            kubectl version \
-            && kubectl get po
+      - name: Apply deployment
+        run: cat .k8s/deployment.yaml | envsubst | kubectl apply -f - \

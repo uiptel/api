@@ -2,7 +2,7 @@ name: demo
 
 on:
   push:
-    branches: demo
+    branches: master
 
 jobs:
   image-build:
@@ -49,7 +49,9 @@ jobs:
 
   image-deploy:
     env:
-      KUBEHOME: '${{ github.workspace }}/.kube'
+      KUBEHOME: ${{ github.workspace }}/.kube
+      KUBECONFIG: ${{ github.workspace }}/.kube/config
+
     runs-on: ubuntu-latest
     needs: image-build
 
@@ -57,7 +59,7 @@ jobs:
       - name: Checkout application repository
         uses: actions/checkout@v2
 
-      - name: Download production env
+      - name: Download env
         uses: actions/download-artifact@v2
         with:
           name: env
@@ -66,9 +68,7 @@ jobs:
       - name: Deploy Kube config
         run: |
           mkdir -p ${KUBEHOME} \
-            && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBEHOME}/config \
-            && ls -la ${KUBEHOME} \
-            && cat ${KUBEHOME}/config
+            && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBECONFIG}
       
-      - name: Check kubectl version 
-        run: kubectl version 
+      - name: Apply deployment
+        run: cat .k8s/deployment.yaml | envsubst | kubectl apply -f - \
