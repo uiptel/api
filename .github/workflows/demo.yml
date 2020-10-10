@@ -39,12 +39,12 @@ jobs:
 
       - run: docker push ${IMAGE}
       - run: echo "DIGEST_IMAGE=$(docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE})" >> $GITHUB_ENV
-      - run: echo $GITHUB_ENV
+      - run: printenv > .env.build
       - name: Upload production env
         uses: actions/upload-artifact@v1
         with:
-          name: github-env
-          path: ${{ env.GITHUB_ENV }}
+          name: env
+          path: .env.build
 
   image-deploy:
     runs-on: ubuntu-latest
@@ -54,5 +54,5 @@ jobs:
       - name: Download production env
         uses: actions/download-artifact@v2
         with:
-          name: github-env
-      - run: printenv
+          name: env
+      - run: cat .env.build >> $GITHUB_ENV
