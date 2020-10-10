@@ -51,6 +51,7 @@ jobs:
     env:
       KUBEHOME: '${{ github.workspace }}/.kube'
     runs-on: ubuntu-latest
+    needs: image-build
 
     steps:
       - name: Checkout application repository
