@@ -5,7 +5,7 @@ on:
     branches: master
 
 jobs:
-  production-image-build:
+  image-build:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,11 +39,20 @@ jobs:
 
       - run: docker push ${IMAGE}
       - run: echo "DIGEST_IMAGE=$(docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE})" >> $GITHUB_ENV
-      - run: cat $GITHUB_ENV
+      - run: echo $GITHUB_ENV
+      - name: Upload production env
+        uses: actions/upload-artifact@v1
+        with:
+          name: github-env
+          path: ${{ env.GITHUB_ENV }}
 
-  deploy-image:
+  image-deploy:
     runs-on: ubuntu-latest
     needs: production-image-build
 
     steps:
-      - run: echo "Deploy image test ... "
+      - name: Download production env
+        uses: actions/download-artifact@v2
+        with:
+          name: github-env
+      - run: printenv
