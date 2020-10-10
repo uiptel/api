@@ -48,13 +48,26 @@ jobs:
           path: .env.deploy
 
   image-deploy:
+    env:
+      KUBEHOME: '${{ github.workspace }}/.kube'
     runs-on: ubuntu-latest
     needs: image-build
 
     steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v2
+
       - name: Download production env
         uses: actions/download-artifact@v2
         with:
           name: env
       - run: cat .env.deploy >> $GITHUB_ENV
-      - run: printenv
+
+      - name: Deploy Kube config
+        run: |
+          mkdir -p ${KUBEHOME} \
+            && echo '${{ secrets.KUBECONFIG}}' | base64 -d > ${KUBEHOME}/config \
+            && cp .k8s/ca.crt ${KUBEHOME} 
+      
+      - name: Check kubectl version 
+        run: kubectl version 
