@@ -22,4 +22,6 @@ jobs:
             && cat ${KUBEHOME}/config
       
       - name: Check kubectl version 
-        run: kubectl version --kubeconfig ${KUBEHOME}/config
+        run: |
+            kubectl version --kubeconfig ${KUBEHOME}/config \
+            && kubectl get po
