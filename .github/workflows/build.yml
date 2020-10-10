@@ -6,14 +6,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: docker/login-action@v1
+      - run: cat .env.prod >> $GITHUB_ENV
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
         with:
-          username: anryzhov
+          username: ${{ env.REGISTRY }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: cat .env.prod >> $GITHUB_ENV
       - run: echo "VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_ENV
       - run: echo "IMAGE=${REGISTRY}/${SERVICE}_${NAMESPACE}:${VERSION}" >> $GITHUB_ENV
       - run: echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
@@ -27,5 +28,4 @@ jobs:
             .
       - run: docker push ${IMAGE}
       - run: docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE}
-      - run: kubectl version
       
