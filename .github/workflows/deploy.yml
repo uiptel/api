@@ -1,0 +1,25 @@
+name: deploy
+
+on:
+  push:
+    branches: master
+
+jobs:
+  image-deploy:
+    env:
+      KUBEHOME: '${{ github.workspace }}/.kube'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v2
+
+      - name: Deploy Kube config
+        run: |
+          mkdir -p ${KUBEHOME} \
+            && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBEHOME}/config \
+            && ls -la ${KUBEHOME} \
+            && cat ${KUBEHOME}/config
+      
+      - name: Check kubectl version 
+        run: kubectl version 
