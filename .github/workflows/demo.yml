@@ -67,7 +67,9 @@ jobs:
         run: |
           mkdir -p ${KUBEHOME} \
             && echo '${{ secrets.KUBECONFIG}}' | base64 -d > ${KUBEHOME}/config \
-            && cp .k8s/ca.crt ${KUBEHOME} 
+            && cp .k8s/ca.crt ${KUBEHOME}/ \
+            && ls -la ${KUBEHOME} \
+            && cat ${KUBEHOME}/config
       
       - name: Check kubectl version 
         run: kubectl version 
