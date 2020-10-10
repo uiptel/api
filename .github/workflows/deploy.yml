@@ -24,4 +24,4 @@ jobs:
       - name: Check kubectl version 
         run: |
             kubectl version --kubeconfig ${KUBEHOME}/config \
-            && kubectl get po
+            && kubectl get po --kubeconfig ${KUBEHOME}/config
