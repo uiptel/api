@@ -37,14 +37,15 @@ jobs:
           username: ${{ env.REGISTRY }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - run: docker push ${IMAGE}
-      - run: echo "DIGEST_IMAGE=$(docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE})" >> $GITHUB_ENV
-      - run: printenv > .env.build
-      - name: Upload production env
+      - name: Push image to registry
+        run: docker push ${IMAGE}
+      - name: Save image digest for next jobs
+        run: echo "DIGEST_IMAGE=$(docker inspect --format='{{index .RepoDigests 0}}' ${IMAGE})" > .env.deploy
+      - name: Upload .env.deploy
         uses: actions/upload-artifact@v1
         with:
           name: env
-          path: .env.build
+          path: .env.deploy
 
   image-deploy:
     runs-on: ubuntu-latest
@@ -55,4 +56,5 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: env
-      - run: cat .env.build >> $GITHUB_ENV
+      - run: cat .env.deploy >> $GITHUB_ENV
+      - run: printenv
