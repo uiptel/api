@@ -22,4 +22,4 @@ jobs:
             && cat ${KUBEHOME}/config
       
       - name: Check kubectl version 
-        run: kubectl version 
+        run: kubectl version --kubeconfig ${KUBEHOME}/config
