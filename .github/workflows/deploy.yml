@@ -7,7 +7,9 @@ on:
 jobs:
   image-deploy:
     env:
-      KUBEHOME: '${{ github.workspace }}/.kube'
+      KUBEHOME: ${{ github.workspace }}/.kube
+      KUBECONFIG: ${{ github.workspace }}/.kube/config
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +19,9 @@ jobs:
       - name: Deploy Kube config
         run: |
           mkdir -p ${KUBEHOME} \
-            && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBEHOME}/config \
-            && ls -la ${KUBEHOME} \
-            && cat ${KUBEHOME}/config
+            && echo ${{ secrets.KUBECONFIG }} | base64 -d > ${KUBECONFIG}
       
       - name: Check kubectl version 
         run: |
-            kubectl version --kubeconfig ${KUBEHOME}/config \
-            && kubectl get po --kubeconfig ${KUBEHOME}/config
+            kubectl version \
+            && kubectl get po
