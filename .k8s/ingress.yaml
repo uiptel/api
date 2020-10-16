@@ -4,15 +4,18 @@ metadata:
   name: api
   namespace: uiptel
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+
 spec:
   tls:
   - hosts:
-      - api.uiptel.com
-    secretName: api-uiptel-tls-cert
+      - uiptel.com
+    secretName: uiptel-tls-cert
   rules:
-  - host: api.uiptel.com
+  - host: uiptel.com
     http:
       paths:
-      - backend:
+      - path: /api(/|$)(.*)
+        backend:
           serviceName: api
           servicePort: 3000
