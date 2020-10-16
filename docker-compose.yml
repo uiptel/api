@@ -32,7 +32,7 @@ services:
       DB_URL: 'mysql://uiptel:pass4uiptel@db/uiptel'
       APP_SECRET: some_other_secret_23423424
       BUILD_DATE: ${BUILD_DATE}
-      COMMIT_ID: ${COMMIT_ID}
+      VCS_REF: ${VCS_REF}
       VERSION: ${APP_VERSION}
 
     hostname: ${APP_NAME}
