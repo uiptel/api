@@ -20,7 +20,7 @@ jobs:
           echo "VCS_REF=$(git log --format="%H" -n 1)" >> $GITHUB_ENV
 
       - name: Evaluate production image name
-        run:  echo "IMAGE=${REGISTRY}/${SERVICE}_${NAMESPACE}:${VERSION}" >> $GITHUB_ENV
+        run:  echo "IMAGE=${REGISTRY}/${SERVICE}:${VERSION}" >> $GITHUB_ENV
 
       - name: Build image
         run: >
