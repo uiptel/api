@@ -5,6 +5,7 @@ import { StatModule } from './stat/stat.module';
 import { LoggerMiddleware } from './logger.middleware';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { LoggerModule } from './logger/logger.module';
 import { AppController } from './AppController';
 import config from './config';
 
@@ -27,6 +28,7 @@ import config from './config';
         StatModule,
         UsersModule,
         AuthModule,
+        LoggerModule,
     ],
     controllers: [AppController],
 })

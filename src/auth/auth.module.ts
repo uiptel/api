@@ -7,6 +7,7 @@ import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
+import { LoggerModule } from 'src/logger/logger.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { JwtStrategy } from './jwt.strategy';
                 signOptions: { expiresIn: configService.get('jwt_ttl') },
             }),
         }),
+        LoggerModule,
     ],
     providers: [AuthService, LocalStrategy, JwtStrategy],
     controllers: [AuthController],

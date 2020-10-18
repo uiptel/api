@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, INestApplication } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { AppLogger } from './logger/logger.sevice';
 
-const logger = new Logger('main', false);
-const shutdown = (app: INestApplication, message: string) => app.close().then(_ => logger.log(message));
+const shutdown = (app: INestApplication) => app.close();
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, { cors: true });
@@ -13,13 +13,16 @@ async function bootstrap() {
     const env = configService.get('nodeEnv');
     const version = configService.get('version');
 
+    const logger = await app.resolve(AppLogger); 
+    app.useLogger(logger);
+    
     app.getHttpAdapter().getInstance().enable('trust proxy');
     await app.listen(port);
 
-    process.on('SIGINT', () => shutdown(app, 'Exit on SIGINT...'));
-    process.on('SIGTERM', () => shutdown(app, 'Exit on SIGTERM...'));
+    process.on('SIGINT', () => shutdown(app).then(_ => logger.log('Exit on SIGINT...')));
+    process.on('SIGTERM', () => shutdown(app).then(_ => logger.log('Exit on SIGTERM...')));
 
-    logger.log(`Application started on port => ${port}, env => ${env}, version => ${version}`);
+    logger.log(`started on port => ${port}, env => ${env}, version => ${version}`);
 
     return app;
 }

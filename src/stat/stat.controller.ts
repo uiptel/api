@@ -4,7 +4,6 @@ import { StatService } from './stat.service';
 import { Stat } from './stat.entity';
 import { StatInterceptor } from './stat.interceptor';
 import { JwtAuthGuard } from '../auth/auth.service';
-import { JwtService } from '@nestjs/jwt';
 
 @Crud({
     model: {
