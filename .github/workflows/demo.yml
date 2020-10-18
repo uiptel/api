@@ -25,7 +25,7 @@ jobs:
       - name: Build image
         run: >
             docker build -f .docker/Dockerfile -t ${IMAGE} --rm
-            --build-arg WORKDIR=$APP_PATH}
+            --build-arg WORKDIR=${APP_PATH}
             --build-arg BUILD_DATE=${BUILD_DATE}
             --build-arg VCS_REF=${VCS_REF}
             --build-arg VERSION=${VERSION}
