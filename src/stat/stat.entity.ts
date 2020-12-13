@@ -39,7 +39,7 @@ export class Stat {
   @IsString({ always: true })
   @MaxLength(128, { always: true })
   @Column({ type: "char", length: 128})
-  digestImage: string;
+  href: string;
 
   @CreateDateColumn()
   @Index()
