@@ -3,9 +3,8 @@ import { ConfigService } from "@nestjs/config";
 
 interface IndexModel {
     version: string;
-    commitId: string;
+    vcsRef: string;
     buildDate: string;
-    digestImage: string;
     nodeEnv: string;
 }
 
@@ -17,9 +16,8 @@ export class AppController {
     index(): IndexModel {
         return {
             version: this.configService.get('version'),
-            commitId: this.configService.get('commitId'),
+            vcsRef: this.configService.get('vcsRef'),
             buildDate: this.configService.get('buildDate'),
-            digestImage: this.configService.get('digestImage'),
             nodeEnv: this.configService.get('nodeEnv'),
         };
     }

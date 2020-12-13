@@ -2,7 +2,7 @@
 const {
     VERSION: version,
     BUILD_DATE: buildDate,
-    COMMIT_ID: commitId,
+    VCS_REF: vcsRef,
     DB_URL: dbUrl,
     APP_SECRET: secret,
     DIGEST_IMAGE: digestImage = 'undefined',
@@ -17,7 +17,7 @@ export default (): unknown => ({
     secret,
     version,
     buildDate,
-    commitId,
+    vcsRef,
     digestImage,
     nodeEnv,
 });
